@@ -1,0 +1,28 @@
+<mvc:View
+   controllerName="ui5.mock.controller.Login"
+   xmlns:form="sap.ui.layout.form"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <Panel
+      headerText="{i18n>loginPanelTitle}"
+      class="sapUiResponsiveMargin centeredPanelHeader"
+      width="auto">
+      <content>
+         <form:SimpleForm id="simpleForm" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false"
+            labelSpanL="4" labelSpanM="4" labelSpanS="12" columnsL="1" columnsM="1" emptySpanL="4" emptySpanM="4"
+            breakpointL="800" breakpointM="600">
+                <form:content>
+                    <Label text="Username" required="true"/>
+                    <Input id="inp_username" type="Text"/>
+                    <Label text="Password" required="true"/>
+                    <Input id="inp_password" type="Password"/>
+                    <Label text="" design="Bold" />
+                    <Button id="submit" text="Login" type="Accept" press="onLoginUser"/>
+                    
+                </form:content>
+            </form:SimpleForm>
+      </content>
+   </Panel>
+</mvc:View>
+
+

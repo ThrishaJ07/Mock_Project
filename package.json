@@ -1,0 +1,11 @@
+{
+    "name": "ui5.mock",
+    "version": "1.0.0",
+    "description": "The UI5 mock application",
+    "scripts": {
+        "start": "ui5 serve -o index.html"
+    },
+    "devDependencies": {
+        "@ui5/cli": "^4.0.7"
+    }
+}
