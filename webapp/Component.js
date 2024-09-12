@@ -13,20 +13,15 @@ sap.ui.define([
        init() {
           // call the init function of the parent
           UIComponent.prototype.init.apply(this, arguments);
-          // set data model
-         const oData = {
-            recipient : {
-               name : "World"
-            }
-         };
-         const oModel = new JSONModel(oData);
-         this.setModel(oModel);
 
          // set i18n model
          const i18nModel = new ResourceModel({
             bundleName: "ui5.mock.i18n.i18n"
          });
          this.setModel(i18nModel, "i18n");
+
+         // Create the router and navigate to the initial route
+         this.getRouter().initialize();
        }
     });
  });

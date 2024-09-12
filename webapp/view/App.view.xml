@@ -1,15 +1,7 @@
 <mvc:View
    controllerName="ui5.mock.controller.App"
-   xmlns="sap.m"
+   xmlns="sap.m"  
    xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true">
-   <App>
-      <pages>
-         <Page title="{i18n>homePageTitle}">
-            <content>
-               <mvc:XMLView viewName="ui5.mock.view.Login"/>
-            </content>
-         </Page>
-      </pages>
-   </App>
+   <App id="app"/>
 </mvc:View>

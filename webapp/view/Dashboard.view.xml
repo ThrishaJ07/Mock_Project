@@ -1,13 +1,12 @@
 <mvc:View
-   controllerName="ui5.mock.controller.Dashboard"
-   xmlns="sap.m"
-   xmlns:mvc="sap.ui.core.mvc">
-   <Panel
-      headerText="{i18n>loginPanelTitle}"
-      class="sapUiResponsiveMargin"
-      width="auto">
-      <content>
-         
-      </content>
-   </Panel>
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="ui5.mock.controller.Dashboard">
+    <Page
+        title="Dashboard">
+        <content>
+            <!-- Your dashboard content goes here -->
+            <Text text="Welcome to the Dashboard!" />
+        </content>
+    </Page>
 </mvc:View>

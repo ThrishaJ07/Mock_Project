@@ -41,44 +41,50 @@
         "type": "XML",
         "id": "app"
       },
+        "routing": {
+            "config": {
+                "routerClass": "sap.ui.core.routing.Router",
+                "viewType": "XML",
+                "viewPath": "ui5.mock.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "bypassed": {
+                    "target": "notFound"
+                }
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "login",
+                    "target": "TargetView1"
+                },
+                {
+                    "pattern": "dash",
+                    "name": "dashboard",
+                    "target": "TargetView2"
+                }
+            ],
+            "targets": {
+                "TargetView1": {
+                    "viewName": "Login",
+                    "viewLevel": 1
+                },
+                "TargetView2": {
+                    "viewName": "Dashboard",
+                    "viewLevel": 2
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewLevel": 3
+                }
+            }
+        },
       "resources": {
         "css": [
         {
           "uri": "css/style.css"
         }
         ]
-      },
-      "routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "type": "View",
-        "viewType": "XML",
-        "path": "ui5.mock.view",
-        "controlId": "app",
-        "controlAggregation": "pages"
-      },
-      "routes": [
-        {
-          "pattern": "",
-          "name": "overview",
-          "target": "overview"
-        },
-        {
-          "pattern": "detail",
-          "name": "detail",
-          "target": "detail"
-        }
-      ],
-      "targets": {
-        "overview": {
-          "id": "overview",
-          "name": "Overview"
-        },
-        "detail": {
-          "id": "detail",
-          "name": "Detail"
-        }
       }
-    }
     }
   }
