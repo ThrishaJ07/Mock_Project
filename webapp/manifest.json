@@ -43,7 +43,7 @@
       },
         "routing": {
             "config": {
-                "routerClass": "sap.ui.core.routing.Router",
+                "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
                 "viewPath": "ui5.mock.view",
                 "controlId": "app",
@@ -59,7 +59,7 @@
                     "target": "TargetView1"
                 },
                 {
-                    "pattern": "dash",
+                    "pattern": "dashboard",
                     "name": "dashboard",
                     "target": "TargetView2"
                 }

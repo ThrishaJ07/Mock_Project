@@ -13,11 +13,11 @@
             breakpointL="800" breakpointM="600">
                 <form:content>
                     <Label text="Username" required="true"/>
-                    <Input id="inp_username" type="Text"/>
+                    <Input id="inp_username" type="Text" liveChange="onInputChange"/>
                     <Label text="Password" required="true"/>
-                    <Input id="inp_password" type="Password"/>
+                    <Input id="inp_password" type="Password" liveChange="onInputChange"/>
                     <Label text="" design="Bold" />
-                    <Button id="submit" text="Login" type="Accept" press="onLoginUser"/>
+                    <Button id="submit" text="Login" type="Accept" press="onLoginUser" enabled="{/isLoginEnabled}"/>
                     
                 </form:content>
             </form:SimpleForm>

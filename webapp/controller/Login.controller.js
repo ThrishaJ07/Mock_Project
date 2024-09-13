@@ -1,9 +1,8 @@
-
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageBox"
+    "sap/ui/model/json/JSONModel" 
 ],
-function (Controller, MessageBox) {
+function (Controller, JSONModel) {
     "use strict";
 
     return Controller.extend("ui5.mock.controller.Login", {
@@ -15,33 +14,42 @@ function (Controller, MessageBox) {
         ],
 
         onInit: function () {
+            var oViewModel = new JSONModel({
+                isLoginEnabled: false
+            });
+            this.getView().setModel(oViewModel);
+        },
+        onInputChange: function() {
+            var username = this.getView().byId('inp_username').getValue();
+            var password = this.getView().byId('inp_password').getValue();
 
+            // Check if both fields are non-empty to enable the login button
+            var isLoginEnabled = (username !== "" && password !== "");
+
+            // Update the model with the enabled state
+            this.getView().getModel().setProperty("/isLoginEnabled", isLoginEnabled);
         },
         onLoginUser : function(){
-            var username = this.getView().byId('inp_username');
-            var password = this.getView().byId('inp_password');
+            var usernameField = this.getView().byId('inp_username');
+            var passwordField = this.getView().byId('inp_password');
 
-            if(username.getValue() === ''){
-                MessageBox.error("Please enter username");
-                return;
-            } else if(password.getValue() === ''){
-                MessageBox.error("Please enter Password");
-                return;
-            } else{
-                var userFound = this.users.some(function(user){
-                    return user.username === username.getValue() && user.password === password.getValue()
-                    
-                });
-                if(userFound){
-                    this.getOwnerComponent().getRouter().navTo("dashboard", {}, true);
-                }else{
-                    MessageBox.error("Invalid Username or Password!");
-                    return;
-                }
+            var username = usernameField.getValue();
+            var password = passwordField.getValue();
+
+            var userFound = this.users.some(function(user) {
+                return user.username === username && user.password === password;
+            });
+
+            if (!userFound) {
+                // Set error state on username field if the username is invalid
+                usernameField.setValueState("Error");
+                usernameField.setValueStateText("Invalid username or password");
+                passwordField.setValueState("Error");
+                passwordField.setValueStateText("Invalid username or password");
+            } else {
+                usernameField.setValueState("None");
+                this.getOwnerComponent().getRouter().navTo("dashboard");
             }
         }
     });
 });
-
-
-
