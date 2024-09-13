@@ -1,12 +1,62 @@
 <mvc:View
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     controllerName="ui5.mock.controller.Dashboard">
-    <Page
-        title="Dashboard">
-        <content>
-            <!-- Your dashboard content goes here -->
-            <Text text="Welcome to the Dashboard!" />
-        </content>
-    </Page>
+    <VBox class="sapUiResponsiveMargin" fitContainer="true">
+    <Panel
+      headerText="{i18n>empManagementPortal}"
+      class="sapUiResponsiveMargin"
+      width="auto">
+      <content>
+        <HBox class="sapUiResponsiveMargin">
+            <Label text="{i18n>name}" />
+            <Input id="nameInput" width="200px" placeholder="Enter name" liveChange="onFilter" />
+            <Label text="{i18n>eid}" />
+            <Input id="eidInput" width="200px" placeholder="Enter Employee ID" liveChange="onFilter" />
+            <Label text="{i18n>status}" />
+               <Select id="statusInput" width="200px" change="onFilter">
+                  <items>
+                     <core:Item key="" text="All" />
+                     <core:Item key="Active" text="Active" />
+                     <core:Item key="Inactive" text="Inactive" />
+                  </items>
+               </Select>
+            <Button text="{i18n>filter}" press="onFilter" />
+        </HBox>
+        <Button text="{i18n>add}" type="Accept" />
+        <Button text="{i18n>export}" type="Emphasized" />
+      </content>
+    </Panel>
+    <Table id="employeeTable" items="{/employees}">
+         <columns>
+            <Column>
+               <Text text="{i18n>name}" />
+            </Column>
+            <Column>
+               <Text text="{i18n>eid}" />
+            </Column>
+            <Column>
+               <Text text="{i18n>email}" />
+            </Column>
+            <Column>
+               <Text text="{i18n>status}" />
+            </Column>
+            <Column>
+               <Text text="{i18n>delete}" />
+            </Column>
+         </columns>
+         <items>
+            <ColumnListItem>
+               <cells>
+                  <Text text="{FirstName} {LastName}" />
+                  <Text text="{EmployeeID}" />
+                  <Text text="{Email}" />
+                  <Text text="{Status}" />
+                  <Button text="{i18n>delete}" type="Reject" press="onDelete" />
+               </cells>
+            </ColumnListItem>
+         </items>
+      </Table>
+    </VBox>
 </mvc:View>

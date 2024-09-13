@@ -1,0 +1,95 @@
+{
+  "employees":[
+    {
+      "EmployeeID": "E001",
+      "FirstName": "John",
+      "LastName": "Doe",
+      "Email": "john.doe@example.com",
+      "Phone": "+123456789",
+      "Department": "Sales",
+      "Position": "Sales Manager",
+      "Status": "Active",
+      "HireDate": "2018-06-15",
+      "Salary": 75000,
+      "Address": {
+        "Street": "123 Main St",
+        "City": "New York",
+        "ZipCode": "10001",
+        "Country": "USA"
+      }
+    },
+    {
+      "EmployeeID": "E002",
+      "FirstName": "Jane",
+      "LastName": "Smith",
+      "Email": "jane.smith@example.com",
+      "Phone": "+987654321",
+      "Department": "Marketing",
+      "Position": "Marketing Specialist",
+      "Status": "Active",
+      "HireDate": "2020-01-20",
+      "Salary": 65000,
+      "Address": {
+        "Street": "456 Market Ave",
+        "City": "Los Angeles",
+        "ZipCode": "90001",
+        "Country": "USA"
+      }
+    },
+    {
+      "EmployeeID": "E003",
+      "FirstName": "Michael",
+      "LastName": "Brown",
+      "Email": "michael.brown@example.com",
+      "Phone": "+112233445",
+      "Department": "IT",
+      "Position": "Software Developer",
+      "Status": "Inactive",
+      "HireDate": "2017-11-10",
+      "Salary": 80000,
+      "Address": {
+        "Street": "789 Tech Blvd",
+        "City": "San Francisco",
+        "ZipCode": "94101",
+        "Country": "USA"
+      }
+    },
+    {
+      "EmployeeID": "E004",
+      "FirstName": "Emily",
+      "LastName": "Davis",
+      "Email": "emily.davis@example.com",
+      "Phone": "+998877665",
+      "Department": "Finance",
+      "Position": "Accountant",
+      "Status": "Active",
+      "HireDate": "2019-04-25",
+      "Salary": 70000,
+      "Address": {
+        "Street": "101 Finance St",
+        "City": "Chicago",
+        "ZipCode": "60601",
+        "Country": "USA"
+      }
+    },
+    {
+      "EmployeeID": "E005",
+      "FirstName": "Sarah",
+      "LastName": "Johnson",
+      "Email": "sarah.johnson@example.com",
+      "Phone": "+554433221",
+      "Department": "HR",
+      "Position": "HR Manager",
+      "Status": "Active",
+      "HireDate": "2016-09-15",
+      "Salary": 85000,
+      "Address": {
+        "Street": "202 Human Resources Rd",
+        "City": "Boston",
+        "ZipCode": "02101",
+        "Country": "USA"
+      }
+    }
+  ]
+}
+    
