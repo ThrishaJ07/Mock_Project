@@ -47,6 +47,11 @@ function (Controller, JSONModel) {
                 passwordField.setValueState("Error");
                 passwordField.setValueStateText("Invalid username or password");
             } else {
+                // Save the username in a model to be used in the dashboard
+                var oUserModel = new sap.ui.model.json.JSONModel({
+                    loggedInUser: username
+                });
+                sap.ui.getCore().setModel(oUserModel, "userModel");
                 usernameField.setValueState("None");
                 this.getOwnerComponent().getRouter().navTo("dashboard");
             }

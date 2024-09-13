@@ -10,6 +10,7 @@ sap.ui.define([
         var oModel = new JSONModel("MockData.json");
         this.getView().setModel(oModel);
        },
+       
        onFilter: function () {
         var name = this.getView().byId("nameInput").getValue().toLowerCase();
         var eid = this.getView().byId("eidInput").getValue().toLowerCase();
