@@ -13,28 +13,32 @@
                <Panel>
                   <content>
                      <HBox class="sapUiResponsiveMargin">
-                           <VBox>
-                           <Label text="{i18n>name}" />
-                           <Input id="nameInput" width="200px" placeholder="Enter name" liveChange="onFilter" class="sapUiSmallMarginEnd"/>
-                           </VBox>
-                           <VBox>
-                           <Label text="{i18n>eid}" />
-                           <Input id="eidInput" width="200px" placeholder="Enter Employee ID" liveChange="onFilter" class="sapUiSmallMarginEnd"/>
-                           </VBox>
-                           <VBox>
-                           <Label text="{i18n>status}" />
-                              <Select id="statusInput" width="200px" change="onFilter" class="sapUiSmallMarginEnd">
+                        <VBox>
+                        <Label text="{i18n>name}" />
+                        <Input id="nameInput" width="200px" placeholder="Enter name" liveChange="onFilter" class="sapUiSmallMarginEnd"/>
+                        </VBox>
+                        <VBox>
+                        <Label text="{i18n>eid}" />
+                        <Input id="eidInput" width="200px" placeholder="Enter Employee ID" liveChange="onFilter" class="sapUiSmallMarginEnd"/>
+                        </VBox>
+                        <VBox>
+                         <Label text="{i18n>status}" />
+                           <Select id="statusInput" width="200px" change="onFilter" class="sapUiSmallMarginEnd">
                                  <items>
                                     <core:Item key="" text="All" />
                                     <core:Item key="Active" text="Active" />
                                     <core:Item key="Inactive" text="Inactive" />
                                  </items>
-                              </Select>
-                           </VBox>
-                              <Button text="{i18n>filter}" press="onFilter" />
+                           </Select>
+                        </VBox>
+                        <HBox class="sapUiSmallMarginEnd" alignItems="End">
+                           <Button text="{i18n>filter}" press="onFilter" width="150px" />
+                        </HBox>
                      </HBox>
-                     <Button text="{i18n>add}" type="Accept" class="sapUiSmallMarginEnd" />
-                     <Button text="{i18n>export}" type="Emphasized" class="sapUiSmallMarginEnd" />
+                     <HBox justifyContent="End" class="sapUiSmallMarginTop">
+                        <Button text="{i18n>add}" type="Accept" class="sapUiSmallMarginEnd" press="onAddEmployee" width="150px"/>
+                        <Button text="{i18n>export}" type="Emphasized" class="sapUiSmallMarginEnd" press="onExport" width="150px"/>
+                     </HBox>
                   </content>
                </Panel>
                <Table id="employeeTable" items="{/employees}">
@@ -56,7 +60,7 @@
                         </Column>
                      </columns>
                      <items>
-                        <ColumnListItem>
+                        <ColumnListItem type="Active" press="onEmployeePress">
                            <cells>
                               <Text text="{FirstName} {LastName}" />
                               <Text text="{EmployeeID}" />
@@ -69,5 +73,62 @@
                </Table>
             </VBox>
       </content>
+      <!-- Dialog for Adding Employee -->
+      <Dialog id="addEmployeeDialog" title="Add Employee" draggable="true" resizable="true">
+         <VBox class="sapUiResponsiveMargin">
+            <VBox>
+               <Label text="First Name" />
+               <Input id="firstNameInput" placeholder="Enter First Name" />
+            </VBox>
+            
+            <VBox>
+               <Label text="Last Name" />
+               <Input id="lastNameInput" placeholder="Enter Last Name" />
+            </VBox>
+
+            <VBox>
+               <Label text="Email" />
+               <Input id="emailInput" placeholder="Enter Email" />
+            </VBox>
+         </VBox>
+         <beginButton>
+            <Button text="Submit" press="onSubmitAddEmployee" />
+         </beginButton>
+         <endButton>
+            <Button text="Cancel" press="onCancelAddEmployee" />
+         </endButton>
+      </Dialog>
+      <!-- Dialog for Viewing Employee Details -->
+      <Dialog id="employeeDetailsDialog" title="Employee Details" draggable="true" resizable="true">
+         <VBox class="sapUiResponsiveMargin">
+            <VBox>
+               <Label text="First Name" />
+               <Text id="firstNameText" />
+            </VBox>
+
+            <VBox>
+               <Label text="Last Name" />
+               <Text id="lastNameText" />
+            </VBox>
+
+            <VBox>
+               <Label text="Email" />
+               <Text id="emailText" />
+            </VBox>
+
+            <VBox>
+               <Label text="Employee ID" />
+               <Text id="employeeIdText" />
+            </VBox>
+
+            <VBox>
+               <Label text="Status" />
+               <Text id="statusText" />
+            </VBox>
+         </VBox>
+         <beginButton>
+            <Button text="Close" press="onCloseEmployeeDetailsDialog" />
+         </beginButton>
+      </Dialog>
    </Page>
 </mvc:View>
