@@ -60,7 +60,7 @@
                     "target": "TargetView1"
                 },
                 {
-                    "pattern": "dashboard",
+                    "pattern": "dashboard/{username}",
                     "name": "dashboard",
                     "target": "TargetView2"
                 }

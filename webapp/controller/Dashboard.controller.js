@@ -9,8 +9,18 @@ sap.ui.define([
 
    return Controller.extend("ui5.mock.controller.Dashboard", {
        onInit: function () {
-        var oModel = new JSONModel("MockData.json");
-        this.getView().setModel(oModel);
+
+            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.getRoute("dashboard").attachPatternMatched(this._onObjectMatched, this);
+
+            var oModel = new JSONModel("MockData.json");
+            this.getView().setModel(oModel);
+       },
+
+        _onObjectMatched: function (oEvent) {
+            var sUserName = oEvent.getParameter("arguments").username;
+            // Set the username in the view
+            this.getView().byId("welcomeMessage").setText("Welcome " + sUserName);
        },
        
        onFilter: function () {
@@ -73,6 +83,11 @@ sap.ui.define([
         aEmployees.push(newEmployee);
         oModel.setProperty("/employees", aEmployees);
 
+        // Clear the input fields in the dialog
+        this.byId("firstNameInput").setValue("");
+        this.byId("lastNameInput").setValue("");
+        this.byId("emailInput").setValue("");
+
         // Close Dialog and show success message
         this.byId("addEmployeeDialog").close();
         MessageToast.show("Employee added successfully!");
@@ -92,30 +107,36 @@ sap.ui.define([
         oModel.setProperty("/employees", aEmployees);
         MessageToast.show("Employee deleted successfully!");
     },
+    // Get the clicked employee data
     onEmployeePress: function (oEvent) {
-        // Get the clicked employee data
         var oSelectedItem = oEvent.getSource();
         var oContext = oSelectedItem.getBindingContext();
         var oEmployeeData = oContext.getObject();
 
         // Set the employee data in the dialog
-        this.byId("firstNameText").setText(oEmployeeData.FirstName);
-        this.byId("lastNameText").setText(oEmployeeData.LastName);
+        var sName = oEmployeeData.FirstName + " " + oEmployeeData.LastName;
+        this.byId("nameText").setText(sName);
         this.byId("emailText").setText(oEmployeeData.Email);
         this.byId("employeeIdText").setText(oEmployeeData.EmployeeID);
         this.byId("statusText").setText(oEmployeeData.Status);
+        this.byId("phoneText").setText(oEmployeeData.Phone);
+        this.byId("departmentText").setText(oEmployeeData.Department);
+        this.byId("positionText").setText(oEmployeeData.Position);
+        this.byId("hireDateText").setText(oEmployeeData.HireDate);
+        this.byId("salaryText").setText(oEmployeeData.Salary);
+        var oAddress = oEmployeeData.Address;
+        var sAddress = oAddress.Street + ", " + oAddress.City + ", " + oAddress.ZipCode + ", " + oAddress.Country;
+        this.byId("addressText").setText(sAddress);
 
         // Open the dialog
         this.byId("employeeDetailsDialog").open();
      },
-
+     // Close the employee details dialog
      onCloseEmployeeDetailsDialog: function () {
-        // Close the employee details dialog
         this.byId("employeeDetailsDialog").close();
      },
      // Export to Excel functionality
      onExport: function () {
-        var oTable = this.getView().byId("employeeTable");
         var oModel = this.getView().getModel();
 
         var aCols = this.createColumnConfig(); 
@@ -128,7 +149,7 @@ sap.ui.define([
         var oSpreadsheet = new Spreadsheet(oSettings);
         oSpreadsheet.build()
             .then(function () {
-                sap.m.MessageToast.show("Spreadsheet export successful!");
+                MessageToast.show("Spreadsheet export successful!");
             })
             .finally(function () {
                 oSpreadsheet.destroy();

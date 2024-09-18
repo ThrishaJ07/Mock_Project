@@ -7,9 +7,16 @@
         id="dashboardPage"
         title="{i18n>empManagementPortal}"  
         showNavButton="false"               
-        class="sapUiResponsiveMargin">
+      >
+        <headerContent>
+        <Toolbar>
+            <ToolbarSpacer/>
+            <Text id="welcomeMessage" text="{i18n>welcomeMessage} {userName}"/>
+        </Toolbar>
+      </headerContent>
          <content>
             <VBox class="sapUiResponsiveMargin" fitContainer="true">
+            
                <Panel>
                   <content>
                      <HBox class="sapUiResponsiveMargin">
@@ -98,32 +105,57 @@
             <Button text="Cancel" press="onCancelAddEmployee" />
          </endButton>
       </Dialog>
-      <!-- Dialog for Viewing Employee Details -->
+      <!-- Dialog for Displaying Employee Details -->
       <Dialog id="employeeDetailsDialog" title="Employee Details" draggable="true" resizable="true">
          <VBox class="sapUiResponsiveMargin">
             <VBox>
-               <Label text="First Name" />
-               <Text id="firstNameText" />
+               <Label text="Name" />
+               <Text id="nameText" />
             </VBox>
 
-            <VBox>
-               <Label text="Last Name" />
-               <Text id="lastNameText" />
-            </VBox>
-
-            <VBox>
+            <VBox class="sapUiSmallMarginTop">
                <Label text="Email" />
                <Text id="emailText" />
             </VBox>
 
-            <VBox>
+            <VBox class="sapUiSmallMarginTop">
                <Label text="Employee ID" />
                <Text id="employeeIdText" />
             </VBox>
 
-            <VBox>
+            <VBox class="sapUiSmallMarginTop">
                <Label text="Status" />
                <Text id="statusText" />
+            </VBox>
+
+            <VBox class="sapUiSmallMarginTop">
+            <Label text="Phone" />
+            <Text id="phoneText" />
+            </VBox>
+
+            <VBox class="sapUiSmallMarginTop">
+               <Label text="Department" />
+               <Text id="departmentText" />
+            </VBox>
+
+            <VBox class="sapUiSmallMarginTop">
+                <Label text="Position" />
+               <Text id="positionText" />
+            </VBox>
+
+            <VBox class="sapUiSmallMarginTop">
+               <Label text="Hire Date" />
+               <Text id="hireDateText" />
+            </VBox>
+
+            <VBox class="sapUiSmallMarginTop">
+               <Label text="Salary" />
+               <Text id="salaryText" />
+            </VBox>
+
+            <VBox class="sapUiSmallMarginTop">
+               <Label text="Address" />
+               <Text id="addressText" />
             </VBox>
          </VBox>
          <beginButton>
