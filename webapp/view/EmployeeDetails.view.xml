@@ -1,0 +1,48 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:m="sap.m"
+    controllerName="ui5.mock.controller.EmployeeDetails">
+    
+    <uxap:ObjectPageLayout id="objectPage">
+        <uxap:headerTitle>
+            <uxap:ObjectPageHeader objectTitle="{i18n>empManagementPortal}" />
+        </uxap:headerTitle>
+        
+        <uxap:sections>
+            <uxap:ObjectPageSection>
+                <uxap:ObjectPageSubSection>
+                    <m:VBox>
+                        <m:Label text="{i18n>name} :" />
+                        <m:Text text="{employeesModel>name}" />
+                        <m:Label text="{i18n>employeeID} :" />
+                        <m:Text text="{employeesModel>employeeId}" />
+                        <m:Label text="{i18n>email} :" />
+                        <m:Text text="{employeesModel>email}" />
+                    </m:VBox>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection title="{i18n>details}">
+                <uxap:ObjectPageSubSection>
+                    <m:VBox>
+                        <m:Label text="{i18n>phone} :" />
+                        <m:Text text="{phone}" />
+                        <m:Label text="{i18n>status} :" />
+                        <m:Text text="{status}" />
+                        <m:Label text="{i18n>department} :" />
+                        <m:Text text="{department}" />
+                        <m:Label text="{i18n>position} :" />
+                        <m:Text text="{position}" />
+                        <m:Label text="{i18n>hireDate} :" />
+                        <m:Text text="{hireDate}" />
+                        <m:Label text="{i18n>salary} :" />
+                        <m:Text text="{salary}" />
+                        <m:Label text="{i18n>address} :" />
+                        <m:Text text="{address}" />
+                    </m:VBox>
+                </uxap:ObjectPageSubSection>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+    
+</mvc:View>

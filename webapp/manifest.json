@@ -1,91 +1,107 @@
 {
-    "_version": "1.58.0",
-    "sap.app": {
-      "id": "ui5.mock",
-      "i18n": "i18n/i18n.properties",
-      "title": "{{appTitle}}",
-      "description": "{{appDescription}}",
-      "type": "application",
-      "applicationVersion": {
-        "version": "1.0.0"
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "ui5.mock",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "type": "application",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+    },
+    "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+    },
+    "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.108.0",
+      "libs": {
+      "sap.ui.core": {},
+      "sap.m": {},
+      "sap.ui.export": {},
+      "sap.uxap": {} 
+      }
+    },
+    "models": {
+      "i18n": {
+      "type": "sap.ui.model.resource.ResourceModel",
+      "settings": {
+        "bundleName": "ui5.mock.i18n.i18n",
+        "supportedLocales": [""],
+        "fallbackLocale": ""
       }
       },
-      "sap.ui": {
-      "technology": "UI5",
-      "deviceTypes": {
-        "desktop": true,
-        "tablet": true,
-        "phone": true
-      }
-      },
-      "sap.ui5": {
-      "dependencies": {
-        "minUI5Version": "1.108.0",
-        "libs": {
-        "sap.ui.core": {},
-        "sap.m": {},
-        "sap.ui.export": {}
-        }
-      },
-      "models": {
-        "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
+      "employeesModel": {  
+        "type": "sap.ui.model.json.JSONModel",
         "settings": {
-          "bundleName": "ui5.mock.i18n.i18n",
-          "supportedLocales": [""],
-          "fallbackLocale": ""
+            "data": "ui5.mock.MockData.json"  
         }
-        }
-      },
-      "rootView": {
-        "viewName": "ui5.mock.view.App",
-        "type": "XML",
-        "id": "app"
-      },
-        "routing": {
-            "config": {
-                "routerClass": "sap.m.routing.Router",
-                "viewType": "XML",
-                "viewPath": "ui5.mock.view",
-                "controlId": "app",
-                "controlAggregation": "pages",
-                "bypassed": {
-                    "target": "notFound"
-                }
-            },
-            "routes": [
-                {
-                    "pattern": "",
-                    "name": "login",
-                    "target": "TargetView1"
-                },
-                {
-                    "pattern": "dashboard/{username}",
-                    "name": "dashboard",
-                    "target": "TargetView2"
-                }
-            ],
-            "targets": {
-                "TargetView1": {
-                    "viewName": "Login",
-                    "viewLevel": 1
-                },
-                "TargetView2": {
-                    "viewName": "Dashboard",
-                    "viewLevel": 2
-                },
-                "notFound": {
-                    "viewName": "NotFound",
-                    "viewLevel": 3
-                }
+    }
+    },
+    "rootView": {
+      "viewName": "ui5.mock.view.App",
+      "type": "XML",
+      "id": "app"
+    },
+      "routing": {
+          "config": {
+              "routerClass": "sap.m.routing.Router",
+              "viewType": "XML",
+              "viewPath": "ui5.mock.view",
+              "controlId": "app",
+              "controlAggregation": "pages",
+              "bypassed": {
+                  "target": "notFound"
+              }
+          },
+          "routes": [
+              {
+                  "pattern": "",
+                  "name": "login",
+                  "target": "TargetView1"
+              },
+              {
+                  "pattern": "dashboard/{username}",
+                  "name": "dashboard",
+                  "target": "TargetView2"
+              },
+              {
+                "pattern": "employeeDetails/{path}",
+                "name": "employeeDetails",
+                "target": "TargetEmployeeDetails"
             }
-        },
-      "resources": {
-        "css": [
-        {
-          "uri": "css/style.css"
-        }
-        ]
+          ],
+          "targets": {
+              "TargetView1": {
+                  "viewName": "Login",
+                  "viewLevel": 1
+              },
+              "TargetView2": {
+                  "viewName": "Dashboard",
+                  "viewLevel": 2
+              },
+              "TargetEmployeeDetails": {
+                  "viewName": "EmployeeDetails",
+                  "viewLevel": 3
+              },
+              "notFound": {
+                  "viewName": "NotFound",
+                  "viewLevel": 4
+              }
+          }
+      },
+    "resources": {
+      "css": [
+      {
+        "uri": "css/style.css"
       }
+      ]
     }
   }
+}

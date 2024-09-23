@@ -14,7 +14,7 @@ sap.ui.define([
             oRouter.getRoute("dashboard").attachPatternMatched(this._onObjectMatched, this);
 
             var oModel = new JSONModel("MockData.json");
-            this.getView().setModel(oModel);
+            this.getView().setModel(oModel,"employeesModel");
        },
 
         _onObjectMatched: function (oEvent) {
@@ -30,7 +30,14 @@ sap.ui.define([
 
         var aFilters = [];
         if (name) {
-            aFilters.push(new sap.ui.model.Filter("FirstName", sap.ui.model.FilterOperator.Contains, name));
+            var nameFilter = new sap.ui.model.Filter({
+                filters: [
+                    new sap.ui.model.Filter("FirstName", sap.ui.model.FilterOperator.Contains, name),
+                    new sap.ui.model.Filter("LastName", sap.ui.model.FilterOperator.Contains, name)
+                ],
+                and: false 
+            });
+            aFilters.push(nameFilter);
         }
         if (eid) {
             aFilters.push(new sap.ui.model.Filter("EmployeeID", sap.ui.model.FilterOperator.Contains, eid));
@@ -41,7 +48,7 @@ sap.ui.define([
 
         var oTable = this.getView().byId("employeeTable");
         var oBinding = oTable.getBinding("items");
-        oBinding.filter(aFilters);
+        oBinding.filter(aFilters,"employeesModel");
     },
     // Add Employee Dialog
     onAddEmployee: function () {
@@ -52,30 +59,57 @@ sap.ui.define([
         this.byId("addEmployeeDialog").open();
     },
     // Submit new Employee
+    onNextStep: function () {
+        var firstName = this.byId("firstNameInput").getValue();
+        var lastName = this.byId("lastNameInput").getValue();
+
+        // Validate personal info before moving to the next step
+        if (!firstName || !lastName) {
+            MessageToast.show("Please fill out both First Name and Last Name");
+            return;
+        }
+
+        // Hide personal info section and show contact info section
+        this.byId("personalInfoBox").setVisible(false);
+        this.byId("contactInfoBox").setVisible(true);
+
+        // Hide 'Next' button and show 'Submit' button
+        this.byId("nextButton").setVisible(false);
+        this.byId("submitButton").setVisible(true);
+    },
+
+    // Step 2: Handle "Submit" button press to save employee
     onSubmitAddEmployee: function () {
         var oModel = this.getView().getModel();
         var aEmployees = oModel.getProperty("/employees");
 
+        // Personal Information
         var firstName = this.byId("firstNameInput").getValue();
         var lastName = this.byId("lastNameInput").getValue();
+
+        // Contact Information
+        var phone = this.byId("phoneInput").getValue();
         var email = this.byId("emailInput").getValue();
 
+        // Validate email
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        
-        if (!firstName || !lastName || !email) {
-            MessageToast.show("Please fill all fields");
+        if (!emailPattern.test(email)) {
+            MessageToast.show("Please enter a valid email address");
             return;
         }
 
-         if (!emailPattern.test(email)) {
-            MessageToast.show("Please enter a valid email address");
+        // Validate that all fields are filled
+        if (!phone || !email) {
+            MessageToast.show("Please fill all contact fields");
             return;
-    }
+        }
 
+        // Add the new employee to the model
         var newEmployee = {
             FirstName: firstName,
             LastName: lastName,
             EmployeeID: "E00" + (aEmployees.length + 1),
+            Phone: phone,
             Email: email,
             Status: "Active"
         };
@@ -83,22 +117,39 @@ sap.ui.define([
         aEmployees.push(newEmployee);
         oModel.setProperty("/employees", aEmployees);
 
+        // Clear input fields
+        this.byId("firstNameInput").setValue("");
+        this.byId("lastNameInput").setValue("");
+        this.byId("phoneInput").setValue("");
+        this.byId("emailInput").setValue("");
+
+        // Reset dialog to initial state
+        this.byId("personalInfoBox").setVisible(true);
+        this.byId("contactInfoBox").setVisible(false);
+        this.byId("nextButton").setVisible(true);
+        this.byId("submitButton").setVisible(false);
         // Clear the input fields in the dialog
         this.byId("firstNameInput").setValue("");
         this.byId("lastNameInput").setValue("");
         this.byId("emailInput").setValue("");
 
-        // Close Dialog and show success message
+        // Close the dialog
         this.byId("addEmployeeDialog").close();
         MessageToast.show("Employee added successfully!");
     },
 
-    // Close Add Employee Dialog
+    // Handle "Cancel" button press to close the dialog
     onCancelAddEmployee: function () {
+        // Reset dialog state when closing
+        this.byId("personalInfoBox").setVisible(true);
+        this.byId("contactInfoBox").setVisible(false);
+        this.byId("nextButton").setVisible(true);
+        this.byId("submitButton").setVisible(false);
+
         this.byId("addEmployeeDialog").close();
     },
-    // Delete Employee
-    onDelete: function (oEvent) {
+     // Delete Employee
+     onDelete: function (oEvent) {
         var oModel = this.getView().getModel();
         var aEmployees = oModel.getProperty("/employees");
         var sPath = oEvent.getSource().getBindingContext().getPath();
@@ -107,34 +158,33 @@ sap.ui.define([
         oModel.setProperty("/employees", aEmployees);
         MessageToast.show("Employee deleted successfully!");
     },
-    // Get the clicked employee data
+    //Get employee details
     onEmployeePress: function (oEvent) {
+        // Get the selected item directly from the event source
         var oSelectedItem = oEvent.getSource();
-        var oContext = oSelectedItem.getBindingContext();
-        var oEmployeeData = oContext.getObject();
+        var oContext = oSelectedItem.getBindingContext("employeesModel");
 
-        // Set the employee data in the dialog
-        var sName = oEmployeeData.FirstName + " " + oEmployeeData.LastName;
-        this.byId("nameText").setText(sName);
-        this.byId("emailText").setText(oEmployeeData.Email);
-        this.byId("employeeIdText").setText(oEmployeeData.EmployeeID);
-        this.byId("statusText").setText(oEmployeeData.Status);
-        this.byId("phoneText").setText(oEmployeeData.Phone);
-        this.byId("departmentText").setText(oEmployeeData.Department);
-        this.byId("positionText").setText(oEmployeeData.Position);
-        this.byId("hireDateText").setText(oEmployeeData.HireDate);
-        this.byId("salaryText").setText(oEmployeeData.Salary);
-        var oAddress = oEmployeeData.Address;
-        var sAddress = oAddress.Street + ", " + oAddress.City + ", " + oAddress.ZipCode + ", " + oAddress.Country;
-        this.byId("addressText").setText(sAddress);
+        console.log("Selected Item:", oSelectedItem);
+console.log("Selected Item Context:", oContext ? oContext.getObject() : "No data found.");
 
-        // Open the dialog
-        this.byId("employeeDetailsDialog").open();
-     },
-     // Close the employee details dialog
-     onCloseEmployeeDetailsDialog: function () {
-        this.byId("employeeDetailsDialog").close();
-     },
+        
+        if (!oContext) {
+            console.error("No binding context found.");
+            return;
+        }
+    
+        var sPath = oContext.getPath();
+        var encodedPath = encodeURIComponent(sPath);
+        console.log("Encoded Path:", encodedPath);
+    
+        // Navigate to the employee details page
+        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+        oRouter.navTo("employeeDetails", {
+            path: encodedPath
+        });
+    },    
+    
+   
      // Export to Excel functionality
      onExport: function () {
         var oModel = this.getView().getModel();

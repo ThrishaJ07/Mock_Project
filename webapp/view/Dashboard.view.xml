@@ -6,17 +6,15 @@
      <Page 
         id="dashboardPage"
         title="{i18n>empManagementPortal}"  
-        showNavButton="false"               
-      >
+        showNavButton="false">
         <headerContent>
-        <Toolbar>
-            <ToolbarSpacer/>
-            <Text id="welcomeMessage" text="{i18n>welcomeMessage} {userName}"/>
-        </Toolbar>
-      </headerContent>
+            <Toolbar>
+                  <ToolbarSpacer/>
+                  <Text id="welcomeMessage" text="{i18n>welcomeMessage} {userName}"/>
+            </Toolbar>
+         </headerContent>
          <content>
             <VBox class="sapUiResponsiveMargin" fitContainer="true">
-            
                <Panel>
                   <content>
                      <HBox class="sapUiResponsiveMargin">
@@ -48,7 +46,7 @@
                      </HBox>
                   </content>
                </Panel>
-               <Table id="employeeTable" items="{/employees}">
+               <Table id="employeeTable" items="{employeesModel>/employees}">
                      <columns>
                         <Column>
                            <Text text="{i18n>name}" />
@@ -69,10 +67,10 @@
                      <items>
                         <ColumnListItem type="Active" press="onEmployeePress">
                            <cells>
-                              <Text text="{FirstName} {LastName}" />
-                              <Text text="{EmployeeID}" />
-                              <Text text="{Email}" />
-                              <Text text="{Status}" />
+                              <Text text="{employeesModel>FirstName} {employeesModel>LastName}" />
+                              <Text text="{employeesModel>EmployeeID}" />
+                              <Text text="{employeesModel>Email}" />
+                              <Text text="{employeesModel>Status}" />
                               <Button text="{i18n>delete}" type="Reject" press="onDelete" />
                            </cells>
                         </ColumnListItem>
@@ -81,86 +79,40 @@
             </VBox>
       </content>
       <!-- Dialog for Adding Employee -->
-      <Dialog id="addEmployeeDialog" title="Add Employee" draggable="true" resizable="true">
-         <VBox class="sapUiResponsiveMargin">
-            <VBox>
-               <Label text="First Name" />
-               <Input id="firstNameInput" placeholder="Enter First Name" />
+      <Dialog id="addEmployeeDialog" title="Add Employee" draggable="false" resizable="false">
+            <VBox class="sapUiResponsiveMargin" id="personalInfoBox" visible="true">
+               <!-- Personal Info Section -->
+               <VBox>
+                     <Label text="First Name" />
+                     <Input id="firstNameInput" placeholder="Enter First Name" />
+               </VBox>
+               
+               <VBox>
+                     <Label text="Last Name" />
+                     <Input id="lastNameInput" placeholder="Enter Last Name" />
+               </VBox>
             </VBox>
-            
-            <VBox>
-               <Label text="Last Name" />
-               <Input id="lastNameInput" placeholder="Enter Last Name" />
-            </VBox>
+
+            <VBox class="sapUiResponsiveMargin" id="contactInfoBox" visible="false">
+               <!-- Contact Info Section -->
+               <VBox>
+                     <Label text="Phone Number" />
+                     <Input id="phoneInput" placeholder="Enter Phone Number" />
+               </VBox>
 
             <VBox>
-               <Label text="Email" />
-               <Input id="emailInput" placeholder="Enter Email" />
-            </VBox>
-         </VBox>
-         <beginButton>
-            <Button text="Submit" press="onSubmitAddEmployee" />
-         </beginButton>
-         <endButton>
-            <Button text="Cancel" press="onCancelAddEmployee" />
-         </endButton>
-      </Dialog>
-      <!-- Dialog for Displaying Employee Details -->
-      <Dialog id="employeeDetailsDialog" title="Employee Details" draggable="true" resizable="true">
-         <VBox class="sapUiResponsiveMargin">
-            <VBox>
-               <Label text="Name" />
-               <Text id="nameText" />
+                     <Label text="Email" />
+                     <Input id="emailInput" placeholder="Enter Email" />
+               </VBox>
             </VBox>
 
-            <VBox class="sapUiSmallMarginTop">
-               <Label text="Email" />
-               <Text id="emailText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-               <Label text="Employee ID" />
-               <Text id="employeeIdText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-               <Label text="Status" />
-               <Text id="statusText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-            <Label text="Phone" />
-            <Text id="phoneText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-               <Label text="Department" />
-               <Text id="departmentText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-                <Label text="Position" />
-               <Text id="positionText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-               <Label text="Hire Date" />
-               <Text id="hireDateText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-               <Label text="Salary" />
-               <Text id="salaryText" />
-            </VBox>
-
-            <VBox class="sapUiSmallMarginTop">
-               <Label text="Address" />
-               <Text id="addressText" />
-            </VBox>
-         </VBox>
-         <beginButton>
-            <Button text="Close" press="onCloseEmployeeDetailsDialog" />
-         </beginButton>
+            <!-- Begin Button for Next and Submit -->
+            <HBox justifyContent="End" class="sapUiSmallMarginTop">
+               <Button id="nextButton" text="Next" press="onNextStep" class="sapUiSmallMarginEnd"/>
+               <Button id="submitButton" text="Submit" press="onSubmitAddEmployee" visible="false" class="sapUiSmallMarginEnd"/>
+               <Button text="Cancel" press="onCancelAddEmployee"/>
+            </HBox>
+         
       </Dialog>
    </Page>
 </mvc:View>
