@@ -13,32 +13,52 @@
             <uxap:ObjectPageSection>
                 <uxap:ObjectPageSubSection>
                     <m:VBox>
-                        <m:Label text="{i18n>name} :" />
-                        <m:Text text="{employeesModel>name}" />
-                        <m:Label text="{i18n>employeeID} :" />
-                        <m:Text text="{employeesModel>employeeId}" />
-                        <m:Label text="{i18n>email} :" />
-                        <m:Text text="{employeesModel>email}" />
+                            <m:HBox>
+                            <m:Label text="{i18n>name} : " class="sapUiSmallMarginTop" />
+                            <m:Text text="{employeesModel>FirstName} {employeesModel>LastName}" class="sapUiSmallMarginTop"/>
+                            </m:HBox>
+                            <m:HBox>
+                            <m:Label text="{i18n>eid} : " class="sapUiSmallMarginTop"/>
+                            <m:Text text="{employeesModel>EmployeeID}" class="sapUiSmallMarginTop"/>
+                            </m:HBox>
+                            <m:HBox>
+                            <m:Label text="{i18n>email} : " class="sapUiSmallMarginTop"/>
+                            <m:Text text="{employeesModel>Email}" class="sapUiSmallMarginTop"/>
+                            </m:HBox>
                     </m:VBox>
                 </uxap:ObjectPageSubSection>
             </uxap:ObjectPageSection>
             <uxap:ObjectPageSection title="{i18n>details}">
                 <uxap:ObjectPageSubSection>
                     <m:VBox>
-                        <m:Label text="{i18n>phone} :" />
-                        <m:Text text="{phone}" />
-                        <m:Label text="{i18n>status} :" />
-                        <m:Text text="{status}" />
-                        <m:Label text="{i18n>department} :" />
-                        <m:Text text="{department}" />
-                        <m:Label text="{i18n>position} :" />
-                        <m:Text text="{position}" />
-                        <m:Label text="{i18n>hireDate} :" />
-                        <m:Text text="{hireDate}" />
-                        <m:Label text="{i18n>salary} :" />
-                        <m:Text text="{salary}" />
-                        <m:Label text="{i18n>address} :" />
-                        <m:Text text="{address}" />
+                        <m:HBox>
+                        <m:Label text="{i18n>phone} : " class="sapUiSmallMarginTop" />
+                        <m:Text text="{employeesModel>Phone}" class="sapUiSmallMarginTop"/>
+                        </m:HBox>
+                        <m:HBox>
+                        <m:Label text="{i18n>status} : " class="sapUiSmallMarginTop"/>
+                        <m:Text text="{employeesModel>Status}" class="sapUiSmallMarginTop"/>
+                        </m:HBox>
+                        <m:HBox>
+                        <m:Label text="{i18n>department} : " class="sapUiSmallMarginTop"/>
+                        <m:Text text="{employeesModel>Department}" class="sapUiSmallMarginTop"/>
+                        </m:HBox>
+                        <m:HBox>
+                        <m:Label text="{i18n>position} : " class="sapUiSmallMarginTop"/>
+                        <m:Text text="{employeesModel>Position}" class="sapUiSmallMarginTop"/>
+                        </m:HBox>
+                        <m:HBox>
+                        <m:Label text="{i18n>hireDate} : " class="sapUiSmallMarginTop"/>
+                        <m:Text text="{employeesModel>HireDate}" class="sapUiSmallMarginTop"/>
+                        </m:HBox>
+                        <m:HBox>
+                        <m:Label text="{i18n>salary} : " class="sapUiSmallMarginTop"/>
+                        <m:Text text="{employeesModel>Salary}" class="sapUiSmallMarginTop"/>
+                        </m:HBox>
+                        <m:HBox>
+                        <m:Label text="{i18n>address} : " class="sapUiSmallMarginTop"/>
+                        <m:Text text="{employeesModel>Address/Street}, {employeesModel>Address/City}, {employeesModel>Address/ZipCode}, {employeesModel>Address/Country}" class="sapUiSmallMarginTop"/>
+                        </m:HBox>
                     </m:VBox>
                 </uxap:ObjectPageSubSection>
             </uxap:ObjectPageSection>

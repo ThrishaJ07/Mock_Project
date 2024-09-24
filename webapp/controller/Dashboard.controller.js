@@ -165,7 +165,7 @@ sap.ui.define([
         var oContext = oSelectedItem.getBindingContext("employeesModel");
 
         console.log("Selected Item:", oSelectedItem);
-console.log("Selected Item Context:", oContext ? oContext.getObject() : "No data found.");
+        console.log("Selected Item Context:", oContext ? oContext.getObject() : "No data found.");
 
         
         if (!oContext) {

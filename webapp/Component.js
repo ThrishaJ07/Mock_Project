@@ -14,6 +14,10 @@ sap.ui.define([
           // call the init function of the parent
           UIComponent.prototype.init.apply(this, arguments);
 
+          // Set the model globally
+         var oModel = new JSONModel("MockData.json");
+         this.setModel(oModel, "employeesModel");
+
          // set i18n model
          const i18nModel = new ResourceModel({
             bundleName: "ui5.mock.i18n.i18n"
