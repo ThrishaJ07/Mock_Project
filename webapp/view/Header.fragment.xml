@@ -1,0 +1,13 @@
+<mvc:View
+    controllerName="ui5.mock.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Toolbar>
+        <Title id="headerTitle" text="{i18n>empManagementPortal}" level="H1"/>
+        <ToolbarSpacer/>
+            <ToggleButton
+            id="languageToggle"
+            text="{i18n>toggleLanguage}"
+            press="onToggleLanguage"/>
+    </Toolbar>
+</mvc:View>

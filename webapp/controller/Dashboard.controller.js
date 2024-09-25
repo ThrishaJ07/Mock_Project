@@ -4,7 +4,7 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/export/Spreadsheet", 
     "sap/ui/export/library"
-], function (Controller,JSONModel,MessageToast, Spreadsheet, exportLibrary) {
+], function (Controller,JSONModel ,MessageToast, Spreadsheet, exportLibrary) {
    "use strict";
 
    return Controller.extend("ui5.mock.controller.Dashboard", {
@@ -20,7 +20,8 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sUserName = oEvent.getParameter("arguments").username;
             // Set the username in the view
-            this.getView().byId("welcomeMessage").setText("Welcome " + sUserName);
+            var welcomeMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("welcomeMessage");
+            this.getView().byId("welcomeMessage").setText(welcomeMessage+" "+ sUserName);
        },
        
        onFilter: function () {
@@ -65,7 +66,8 @@ sap.ui.define([
 
         // Validate personal info before moving to the next step
         if (!firstName || !lastName) {
-            MessageToast.show("Please fill out both First Name and Last Name");
+            var sFillAllFieldsMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("fillAllFieldsMessage");
+            MessageToast.show(sFillAllFieldsMessage);
             return;
         }
 
@@ -80,7 +82,7 @@ sap.ui.define([
 
     // Step 2: Handle "Submit" button press to save employee
     onSubmitAddEmployee: function () {
-        var oModel = this.getView().getModel();
+        var oModel = this.getView().getModel("employeesModel");
         var aEmployees = oModel.getProperty("/employees");
 
         // Personal Information
@@ -94,13 +96,15 @@ sap.ui.define([
         // Validate email
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email)) {
-            MessageToast.show("Please enter a valid email address");
+            var sInvalidEmailMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("invalidEmailMessage");
+            MessageToast.show(sInvalidEmailMessage);
             return;
         }
 
         // Validate that all fields are filled
         if (!phone || !email) {
-            MessageToast.show("Please fill all contact fields");
+            var sFillAllFieldsMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("fillAllFieldsMessage");
+            MessageToast.show(sFillAllFieldsMessage);
             return;
         }
 
@@ -135,7 +139,8 @@ sap.ui.define([
 
         // Close the dialog
         this.byId("addEmployeeDialog").close();
-        MessageToast.show("Employee added successfully!");
+        var sSuccessMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("employeeAddedSuccess");
+        MessageToast.show(sSuccessMessage);
     },
 
     // Handle "Cancel" button press to close the dialog
@@ -149,14 +154,15 @@ sap.ui.define([
         this.byId("addEmployeeDialog").close();
     },
      // Delete Employee
-     onDelete: function (oEvent) {
-        var oModel = this.getView().getModel();
+    onDelete: function (oEvent) {
+        var oModel = this.getView().getModel("employeesModel");
         var aEmployees = oModel.getProperty("/employees");
-        var sPath = oEvent.getSource().getBindingContext().getPath();
+        var sPath = oEvent.getSource().getBindingContext("employeesModel").getPath();
         // Remove the selected employee from the array
         aEmployees.splice(parseInt(sPath.split("/")[2]), 1);
         oModel.setProperty("/employees", aEmployees);
-        MessageToast.show("Employee deleted successfully!");
+        var sDeleteMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("employeeDeletedSuccess");
+        MessageToast.show(sDeleteMessage);
     },
     //Get employee details
     onEmployeePress: function (oEvent) {
@@ -164,10 +170,6 @@ sap.ui.define([
         var oSelectedItem = oEvent.getSource();
         var oContext = oSelectedItem.getBindingContext("employeesModel");
 
-        console.log("Selected Item:", oSelectedItem);
-        console.log("Selected Item Context:", oContext ? oContext.getObject() : "No data found.");
-
-        
         if (!oContext) {
             console.error("No binding context found.");
             return;
@@ -183,11 +185,9 @@ sap.ui.define([
             path: encodedPath
         });
     },    
-    
-   
      // Export to Excel functionality
-     onExport: function () {
-        var oModel = this.getView().getModel();
+    onExport: function () {
+        var oModel = this.getView().getModel("employeesModel");
 
         var aCols = this.createColumnConfig(); 
         var oSettings = {
@@ -199,7 +199,8 @@ sap.ui.define([
         var oSpreadsheet = new Spreadsheet(oSettings);
         oSpreadsheet.build()
             .then(function () {
-                MessageToast.show("Spreadsheet export successful!");
+                var sExportMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("employeesExportSuccess");
+                MessageToast.show(sExportMessage);
             })
             .finally(function () {
                 oSpreadsheet.destroy();
@@ -235,6 +236,23 @@ sap.ui.define([
                 type: exportLibrary.EdmType.String
             }
         ];
+    },
+    //Translate to German
+
+    onToggleLanguage: function () {
+    var oToggleButton = this.getView().byId("languageToggle");
+    var bSelected = oToggleButton.getPressed(); // Get the current pressed state
+    var sLanguage = bSelected ? "de" : "en"; // Determine the language based on toggle state
+
+    // Set the new language
+    sap.ui.getCore().getConfiguration().setLanguage(sLanguage);
+
+    // Update the existing resource model to refresh the texts
+    var oResourceModel = this.getOwnerComponent().getModel("i18n");
+    
+    // Refresh the resource model with the new language
+    oResourceModel.setDefaultBindingMode("OneWay"); 
+    oResourceModel.refresh(true); 
     }
    });
 });

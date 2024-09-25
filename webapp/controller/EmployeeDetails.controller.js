@@ -12,7 +12,6 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var sPath = decodeURIComponent(oEvent.getParameter("arguments").path);
-            console.log("Employee Path:", sPath);
             
             var oView = this.getView();
             var oModel = oView.getModel("employeesModel");
@@ -39,7 +38,6 @@ sap.ui.define([
         _onBindingChange: function () {
             var oView = this.getView();
             var oElement = oView.getBindingContext("employeesModel");
-            console.log("Current Binding Context:", oElement ? oElement.getObject() : "No data found");
             if (!oElement) {
                 console.error("No data found for path.");
                 return;

@@ -42,10 +42,11 @@ function (Controller, JSONModel) {
 
             if (!userFound) {
                 // Set error state on username field if the username is invalid
+                var sInvalidfieldMessage = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("invalidFieldMessage");
                 usernameField.setValueState("Error");
-                usernameField.setValueStateText("Invalid username or password");
+                usernameField.setValueStateText(sInvalidfieldMessage);
                 passwordField.setValueState("Error");
-                passwordField.setValueStateText("Invalid username or password");
+                passwordField.setValueStateText(sInvalidfieldMessage);
             } else {
                 this.getOwnerComponent().getRouter().navTo("dashboard",
                 { 

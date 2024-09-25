@@ -2,16 +2,14 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:uxap="sap.uxap"
     xmlns:m="sap.m"
-    controllerName="ui5.mock.controller.EmployeeDetails">
+    controllerName="ui5.mock.controller.EmployeeDetails"
+    xmlns:core="sap.ui.core">
     
+    <core:Fragment fragmentName="ui5.mock.view.Header" type="XML"/>
     <uxap:ObjectPageLayout id="objectPage">
-        <uxap:headerTitle>
-            <uxap:ObjectPageHeader objectTitle="{i18n>empManagementPortal}" />
-        </uxap:headerTitle>
-        
         <uxap:sections>
             <uxap:ObjectPageSection>
-                <uxap:ObjectPageSubSection>
+                <uxap:ObjectPageSubSection title="{i18n>personalInfo}">
                     <m:VBox>
                             <m:HBox>
                             <m:Label text="{i18n>name} : " class="sapUiSmallMarginTop" />
