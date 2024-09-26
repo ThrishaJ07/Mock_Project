@@ -238,21 +238,9 @@ sap.ui.define([
         ];
     },
     //Translate to German
-
     onToggleLanguage: function () {
-    var oToggleButton = this.getView().byId("languageToggle");
-    var bSelected = oToggleButton.getPressed(); // Get the current pressed state
-    var sLanguage = bSelected ? "de" : "en"; // Determine the language based on toggle state
-
-    // Set the new language
-    sap.ui.getCore().getConfiguration().setLanguage(sLanguage);
-
-    // Update the existing resource model to refresh the texts
-    var oResourceModel = this.getOwnerComponent().getModel("i18n");
-    
-    // Refresh the resource model with the new language
-    oResourceModel.setDefaultBindingMode("OneWay"); 
-    oResourceModel.refresh(true); 
+        var oToggleButton = this.getView().byId("languageToggle");
+        this.getOwnerComponent().onToggleLanguage(oToggleButton);
     }
    });
 });

@@ -42,6 +42,11 @@ sap.ui.define([
                 console.error("No data found for path.");
                 return;
             }
-        }
+        },
+       //Translate to German
+        onToggleLanguage: function () {
+        var oToggleButton = this.getView().byId("languageToggle");
+        this.getOwnerComponent().onToggleLanguage(oToggleButton);
+        }   
     });
 });

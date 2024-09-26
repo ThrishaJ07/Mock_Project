@@ -26,7 +26,23 @@ sap.ui.define([
 
          // Create the router and navigate to the initial route
          this.getRouter().initialize();
-       }
+       },
+       onToggleLanguage: function (oToggleButton) {
+         if (!oToggleButton) {
+             console.warn("Toggle button not found!");
+             return;
+         }
+     
+         var bSelected = oToggleButton.getPressed();
+         var sLanguage = bSelected ? "de" : "en";
+     
+         sap.ui.getCore().getConfiguration().setLanguage(sLanguage);
+     
+         var oResourceModel = this.getModel("i18n");
+         oResourceModel.setDefaultBindingMode("OneWay");
+         oResourceModel.refresh(true);
+     }
+     
     });
  });
  

@@ -1,5 +1,4 @@
 <mvc:View
-    controllerName="ui5.mock.controller.Dashboard"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Toolbar>
